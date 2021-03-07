@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "outDir": "./dist",
+        "baseUrl": ".",
+        "declaration": true,
+        "typeRoots": ["node_modules/@types"],
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "lib": ["es2018"],
+        "moduleResolution": "node",
+        "strict": true,
+        "module": "commonjs",
+        "target": "es2018",
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "skipLibCheck": true,
+        "noImplicitAny": true,
+        "strictPropertyInitialization": false,
+        "noImplicitThis": false,
+    },
+    "include": [
+        "src/**/*",
+        "test/**/*"
+    ]
+}
