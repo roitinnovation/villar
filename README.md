@@ -60,6 +60,11 @@ export class SubtractionCalculator implements Calculator {
 
 ```javascript
 
+import { VillarImplResolver } from "villar"
+
+// Register impls
+VillarImplResolver.register(SubtractionCalculator, AdditionCalculator)
+
 // Addition Impl
 const calculator: Calculator | undefined = VillarImplDiscovery.getInstance().findImpl<Calculator>('+')
 console.log(calculator?.calc(10, 1)) //result: 11

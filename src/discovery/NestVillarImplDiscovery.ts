@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { ModuleRef } from "@nestjs/core";
+import { ImplResolver } from "src/resolvers/ImplResolver";
 import { InternalFactoryRegister } from "../internal/InternalFactoryRegister";
 
 @Injectable()
-export class NestVillarImplDiscovery {
+export class NestVillarImplDiscovery implements ImplResolver {
 
     constructor(
         private readonly moduleRef: ModuleRef
@@ -21,7 +22,7 @@ export class NestVillarImplDiscovery {
         return this.getImpl(instanceName)
     }
 
-    private getImpl(implName: string): any {
+    getImpl(implName: string): any {
         return this.moduleRef.get(implName);
     }
 }
