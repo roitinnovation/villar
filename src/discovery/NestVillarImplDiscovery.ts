@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ModuleRef } from "@nestjs/core";
-import { ImplResolver } from "src/resolvers/ImplResolver";
+import { ImplResolver } from "../resolvers/ImplResolver";
 import { InternalFactoryRegister } from "../internal/InternalFactoryRegister";
 
 @Injectable()
