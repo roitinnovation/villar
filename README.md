@@ -54,6 +54,37 @@ export class SubtractionCalculator implements Calculator {
     }
 }
 
+// Division
+// includes attr is like in key
+@Implementation({
+    key: 'any_division_inclues(/)',
+    includes: true
+})
+export class DivisionCalculator implements Calculator {
+
+    calc(num1: number, num2: number): number {
+        return num1 / num2
+    }
+
+}
+
+// Multiplication
+// truthCustom is function from custom truth impl selector
+// function (key: string, metadata: any)
+@Implementation({
+    key: 'multiplication*',
+    truthCustom: (key: string, metadata: any): boolean => { 
+        return key.includes('*') && metadata?.value == 10
+    }
+})
+export class MultiplicationCalculator implements Calculator {
+
+    calc(num1: number, num2: number): number {
+        return num1 * num2
+    }
+
+}
+
 ```
 
 #### Discovery impls
@@ -77,6 +108,19 @@ console.log(calculator?.calc(10, 1)) //result: 9
 const calculator: Calculator | undefined = VillarImplDiscovery.getInstance().findImpl<Calculator>('any_key')
 console.log(calculator?.calc(10, 1)) //result: undefined
 
+// Division
+const calculator: Calculator | undefined = VillarImplDiscovery.getInstance().findImpl<Calculator>('*')
+console.log(calculator?.calc(10, 2)) //result: 5
+
+// Multiplication
+const options: any = { 
+      metadata: { 
+        value: 10 
+      }
+    }
+
+const calculator: Calculator | undefined = VillarImplDiscovery.getInstance().findImpl<Calculator>('*',  options)
+console.log(calculator?.calc(10, 2)) //result: 20
 ```
 
 #### NestJs Discovery impls

@@ -1,9 +1,13 @@
 
 export class ImplementationOptions {
 
-    key: string
+    key?: string
 
     ref?: string
 
     implName?: string
+
+    includes?: boolean = false
+
+    truthCustom?: Function
 }

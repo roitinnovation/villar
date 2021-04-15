@@ -1,3 +1,4 @@
+import { FindImplOption } from "../options/FindImplOption";
 import { InternalFactoryRegister } from "../internal/InternalFactoryRegister";
 import { VillarImplResolver } from "../resolvers/VillarImplResolver";
 
@@ -12,12 +13,12 @@ export class VillarImplDiscovery {
         return this.instance
     }
 
-    findImpl<T>(key: string, ref?: string): T | undefined {
+    findImpl<T>(key: string, option?: FindImplOption): T | undefined {
 
-        const instanceName = InternalFactoryRegister.getInstance().findImpl(key, ref)
+        const instanceName = InternalFactoryRegister.getInstance().findImpl(key, option)
 
         if(!instanceName) {
-            console.log(`It was not possible to find an impl with the key ${key} ${ref ? ` ref ${ref}` : ''}`)
+            console.log(`It was not possible to find an impl with the key ${key} ${option?.ref ? ` ref ${option?.ref}` : ''}`)
             return undefined
         }
 

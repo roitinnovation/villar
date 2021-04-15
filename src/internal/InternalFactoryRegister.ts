@@ -1,10 +1,11 @@
+import { FindImplOption } from "../options/FindImplOption"
 import { ImplementationOptions } from "../options/ImplementationOptions"
 
 export class InternalFactoryRegister {
 
     private static instance: InternalFactoryRegister = new InternalFactoryRegister()
 
-    private implRegsiters: Map<string, string> = new Map()
+    private implRegsiters: Map<any, string> = new Map()
 
     private constructor() {}
 
@@ -14,12 +15,33 @@ export class InternalFactoryRegister {
 
     registerImpl(prototypeName: string, options: ImplementationOptions): void {
         const implName = options.implName || prototypeName
+
         const key = `${options.key}${options.ref || ''}`
-        this.implRegsiters.set(key, implName)
+
+        this.implRegsiters.set({
+            key,
+            includes: options.includes,
+            truthCustom: options.truthCustom
+        }, implName)
     }
 
-    findImpl(key: string, ref?: string): string | undefined {
-        const keyFind = `${key}${ref || ''}`
-        return this.implRegsiters.get(keyFind)
+    findImpl(key: string, option?: FindImplOption): string | undefined {
+        const keyBuild = `${key}${option?.ref || ''}`
+        
+        const keyFind: string | undefined = Array.from(this.implRegsiters.keys()).find(val => {
+            const { key, includes, truthCustom } = val
+            if(includes) {
+                return key.includes(keyBuild)
+            }
+            if(truthCustom) {
+                return truthCustom(key, option?.metadata)
+            }
+            return key == keyBuild
+        })
+
+        if(keyFind) {
+            return this.implRegsiters.get(keyFind)
+        }
+        return undefined
     }
 }
