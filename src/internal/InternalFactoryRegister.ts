@@ -28,10 +28,6 @@ export class InternalFactoryRegister {
     findImpl<T>(key: string, option?: FindImplOption<T>): string | undefined {
         const keyBuild = `${key}${option?.ref || ''}`
         
-        if(option?.defaultImpl) {
-            return this.implRegsiters.get(option?.defaultImpl)
-        }
-
         const keyFind: string | undefined = Array.from(this.implRegsiters.keys()).find(val => {
             const { key, includes, truthCustom } = val
             if(includes) {
@@ -45,6 +41,8 @@ export class InternalFactoryRegister {
 
         if(keyFind) {
             return this.implRegsiters.get(keyFind)
+        }else if(option?.defaultImpl) {
+            return this.implRegsiters.get(option?.defaultImpl)
         }
         return undefined
     }
