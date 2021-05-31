@@ -11,7 +11,7 @@ export class NestVillarImplDiscovery implements ImplResolver {
         private readonly moduleRef: ModuleRef
     ) {}
 
-    findImpl<T>(key: string, option?: FindImplOption<T>): T | undefined {
+    findImpl<T>(key: string, option?: FindImplOption): T | undefined {
 
         const instanceName = InternalFactoryRegister.getInstance().findImpl(key, option)
 
