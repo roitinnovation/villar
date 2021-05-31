@@ -13,7 +13,7 @@ export class VillarImplDiscovery {
         return this.instance
     }
 
-    findImpl<T>(key: string, option?: FindImplOption): T | undefined {
+    findImpl<T>(key: string, option?: FindImplOption<T>): T | undefined {
 
         const instanceName = InternalFactoryRegister.getInstance().findImpl(key, option)
 
