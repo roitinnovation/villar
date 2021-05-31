@@ -11,5 +11,5 @@ export class ImplementationOptions {
 
     truthCustom?: Function
 
-    useDefault?: boolean
+    isDefault?: boolean
 }

@@ -1,9 +1,8 @@
 
-export class FindImplOption<T> {
+export class FindImplOption {
 
     ref?: string
 
     metadata?: any
 
-    defaultImpl?: T
 }

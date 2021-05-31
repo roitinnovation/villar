@@ -25,14 +25,11 @@ export class InternalFactoryRegister {
         }, implName)
     }
 
-    findImpl<T>(keyParam: string, option?: FindImplOption<T>): string | undefined {
+    findImpl(keyParam: string, option?: FindImplOption): string | undefined {
         const keyBuild = `${keyParam}${option?.ref || ''}`
         
         const keyFind: string | undefined = Array.from(this.implRegsiters.keys()).find(val => {
-            const { key, includes, truthCustom, useDefault } = val
-            if(useDefault) {
-                return option?.defaultImpl
-            }
+            const { key, includes, truthCustom } = val
             if(includes) {
                 return key.includes(keyBuild)
             }
@@ -46,6 +43,6 @@ export class InternalFactoryRegister {
             return this.implRegsiters.get(keyFind)
         }
 
-        return undefined
+        return Array.from(this.implRegsiters.keys()).find(val => val.isDefault)
     }
 }
