@@ -1,6 +1,6 @@
 {
   "name": "villar",
-  "version": "0.0.16",
+  "version": "0.0.15",
   "main": "dist/index.js",
   "types": "src/index.ts",
   "scripts": {
