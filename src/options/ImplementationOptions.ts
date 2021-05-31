@@ -10,4 +10,6 @@ export class ImplementationOptions {
     includes?: boolean = false
 
     truthCustom?: Function
+
+    useDefault?: boolean
 }
