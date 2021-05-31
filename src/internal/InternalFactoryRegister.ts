@@ -5,7 +5,7 @@ export class InternalFactoryRegister {
 
     private static instance: InternalFactoryRegister = new InternalFactoryRegister()
 
-    private implRegsiters: Map<any, string> = new Map()
+    private implRegisters: Map<ImplementationOptions, string> = new Map()
 
     private constructor() {}
 
@@ -18,19 +18,16 @@ export class InternalFactoryRegister {
 
         const key = `${options.key}${options.ref || ''}`
 
-        this.implRegsiters.set({
-            key,
-            includes: options.includes,
-            truthCustom: options.truthCustom
-        }, implName)
+        options.key = key
+        this.implRegisters.set(options, implName)
     }
 
     findImpl(keyParam: string, option?: FindImplOption): string | undefined {
         const keyBuild = `${keyParam}${option?.ref || ''}`
         
-        const keyFind: string | undefined = Array.from(this.implRegsiters.keys()).find(val => {
+        const keyFind: ImplementationOptions | undefined = Array.from(this.implRegisters.keys()).find(val => {
             const { key, includes, truthCustom } = val
-            if(includes) {
+            if(includes && key) {
                 return key.includes(keyBuild)
             }
             if(truthCustom) {
@@ -40,9 +37,15 @@ export class InternalFactoryRegister {
         })
 
         if(keyFind) {
-            return this.implRegsiters.get(keyFind)
+            return this.implRegisters.get(keyFind)
         }
 
-        return Array.from(this.implRegsiters.keys()).find(val => val.isDefault)
+        const keyDefault = Array.from(this.implRegisters.keys()).find(val => val.isDefault)
+
+        if(keyDefault) {
+            return this.implRegisters.get(keyDefault)
+        }
+
+        return undefined
     }
 }
