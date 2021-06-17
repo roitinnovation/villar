@@ -31,7 +31,7 @@ export class InternalFactoryRegister {
                 return key.includes(keyBuild)
             }
             if(truthCustom) {
-                return truthCustom(keyParam, option?.metadata)
+                return truthCustom(keyParam, option)
             }
             return key == keyBuild
         })
@@ -40,7 +40,7 @@ export class InternalFactoryRegister {
             return this.implRegisters.get(keyFind)
         }
 
-        const keyDefault = Array.from(this.implRegisters.keys()).find(val => val.isDefault)
+        const keyDefault = Array.from(this.implRegisters.keys()).find(val => val.isDefault && val.ref === option?.ref)
 
         if(keyDefault) {
             return this.implRegisters.get(keyDefault)
