@@ -9,7 +9,10 @@ export class ImplementationOptions {
 
     includes?: boolean = false
 
-    truthCustom?: Function
+    /**
+     * Signature: <T>(key: string, metadata: T) => boolean
+     */
+    truthCustom?: <T>(key: string, metadata: T) => boolean
 
     isDefault?: boolean
 }
