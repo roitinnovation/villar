@@ -2,15 +2,12 @@ import { Calculator } from "../Calculator";
 import { Implementation } from "../../../../src/decorators";
 
 @Implementation({
-    key: '-'
+    isDefault: true
 })
-export class SubtractionCalculator implements Calculator {
-
-    // constructor(public a: string) {
-
-    // }
+export class DefaultCalculator implements Calculator {
 
     calc(num1: number, num2: number): number {
-        return num1 - num2
+        return (num1 + num2) * 0.14
     }
+
 }

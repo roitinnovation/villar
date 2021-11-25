@@ -1,5 +1,5 @@
 import { Calculator } from "../Calculator";
-import { Implementation } from "../../../../src/decoretors/Implementation";
+import { Implementation } from "../../../../src/decorators";
 
 @Implementation({
     key: '+'

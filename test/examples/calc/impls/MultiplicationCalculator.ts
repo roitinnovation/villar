@@ -1,4 +1,4 @@
-import { Implementation } from "../../../../src/decoretors/Implementation";
+import { Implementation } from "../../../../src/decorators";
 import { Calculator } from "../Calculator";
 
 @Implementation({

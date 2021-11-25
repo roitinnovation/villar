@@ -15,8 +15,8 @@ export class VillarImplResolver implements ImplResolver {
 
     static register(...impls: Array<any>) {
         impls.forEach(imp => {
-            const intance = new InstanceLoader(imp).getNew();
-            this.getInstance().registerInstance(intance.constructor.name, intance)
+            const instance = new InstanceLoader(imp).getNew();
+            this.getInstance().registerInstance(instance.constructor.name, instance)
         })
     }
 
