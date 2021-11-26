@@ -8,9 +8,11 @@ import { MultiplicationCalculator } from './examples/calc/impls/MultiplicationCa
 import { DefaultCalculator } from './examples/calc/impls/DefaultCalculator';
 import { DefaultRefCalculator } from './examples/calc/impls/DefaultRefCalculator';
 import { DefaultRef2Calculator } from "./examples/calc/impls/DefaultRef2Calculator";
+import { AdditionCalculatorRef } from "./examples/calc/impls/AdditionCalculatorRef";
+import { AdditionCalculatorRef2 } from "./examples/calc/impls/AdditionCalculatorRef2";
 describe('FactoryCore tests', () => {
 
-  VillarImplResolver.register(SubtractionCalculator, AdditionCalculator, DivisionCalculator, MultiplicationCalculator, DefaultCalculator, DefaultRefCalculator, DefaultRef2Calculator)
+  VillarImplResolver.register(SubtractionCalculator, AdditionCalculator, AdditionCalculatorRef, AdditionCalculatorRef2, DivisionCalculator, MultiplicationCalculator, DefaultCalculator, DefaultRefCalculator, DefaultRef2Calculator)
 
   it('Find iml subtraction', async () => {
 
@@ -69,9 +71,7 @@ describe('FactoryCore tests', () => {
 
     const calculator: Calculator | undefined = VillarImplDiscovery.getInstance().findImpl<Calculator>('ANY',  options)
 
-    // expect(calculator?.calc(10, 2)).toBe(20)
-
-    console.log(calculator?.calc(10, 2))
+    expect(calculator?.calc(10, 2)).toBe(6000)
   });
 
   it('default impl with ref2', async () => {
@@ -85,9 +85,18 @@ describe('FactoryCore tests', () => {
 
     const calculator: Calculator | undefined = VillarImplDiscovery.getInstance().findImpl<Calculator>('ANY',  options)
 
-    // expect(calculator?.calc(10, 2)).toBe(20)
+    expect(calculator?.calc(10, 2)).toBe(12000)
+  });
 
-    console.log(calculator?.calc(10, 2))
+  it('calc sum with ref', async () => {
+
+    const options: any = {
+      ref: 'ANY2'
+    }
+
+    const calculator: Calculator | undefined = VillarImplDiscovery.getInstance().findImpl<Calculator>('+',  options)
+
+    expect(calculator?.calc(10, 2)).toBe(60010)
   });
 
 

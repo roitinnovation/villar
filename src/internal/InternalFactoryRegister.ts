@@ -26,7 +26,12 @@ export class InternalFactoryRegister {
         const keyBuild = `${keyParam}${option?.ref || ''}`
         
         const keyFind: ImplementationOptions | undefined = Array.from(this.implRegisters.keys()).find(val => {
-            const { key, includes, truthCustom } = val
+            const { key, includes, truthCustom, ref } = val
+
+            if(option?.ref && ref != option.ref) {
+                return false
+            }
+
             if(includes && key) {
                 return key.includes(keyBuild)
             }
