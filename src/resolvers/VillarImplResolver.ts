@@ -7,11 +7,13 @@ export class VillarImplResolver implements ImplResolver {
 
     private implInstance: Map<string, any> = new Map
 
-    private constructor() {}
+    private constructor() { }
 
     static getInstance() {
         return this.instance
     }
+
+    onModuleInit() { }
 
     static register(...impls: Array<any>) {
         impls.forEach(imp => {

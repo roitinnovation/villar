@@ -5,4 +5,9 @@ export class FindImplOption {
 
     metadata?: any
 
+    /**
+     * If use nest lazy load model 
+     * @param loaderFn 
+     */
+    moduleRef?: Function
 }

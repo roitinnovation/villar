@@ -1,26 +1,30 @@
 import { Injectable } from "@nestjs/common";
-import { ModuleRef } from "@nestjs/core";
-import { ImplResolver } from "../resolvers/ImplResolver";
+import { ModuleRef } from '@nestjs/core';
 import { InternalFactoryRegister } from "../internal/InternalFactoryRegister";
 import { FindImplOption } from "../options/FindImplOption";
+import { ImplResolver } from "../resolvers/ImplResolver";
 
 @Injectable()
 export class NestVillarImplDiscovery implements ImplResolver {
 
     constructor(
         private readonly moduleRef: ModuleRef
-    ) {}
+    ) { }
 
-    findImpl<T>(key: string, option?: FindImplOption): T | undefined {
+    onModuleInit() { }
+
+    async findImpl<T>(key: string, option?: FindImplOption): Promise<T | undefined> {
 
         const instanceName = InternalFactoryRegister.getInstance().findImpl(key, option)
 
-        if(!instanceName) {
+        if (!instanceName) {
             console.log(`It was not possible to find an impl with the key ${key} ${option?.ref ? ` ref ${option?.ref}` : ''}`)
             return undefined
         }
 
-        return this.getImpl(instanceName)
+        const classInstance = InternalFactoryRegister.getInstance().getClassImpl(instanceName)
+
+        return this.moduleRef.get(classInstance as any)
     }
 
     getImpl(implName: string): any {
